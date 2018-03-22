@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.text.DecimalFormat;
+import java.util.Stack;
 
 import javax.swing.JPanel;
 
@@ -52,6 +53,9 @@ public class DrawLineAndPoint extends JPanel implements MouseListener, MouseMoti
 	//These two instances allow the storing of the database
 	//added 3/5/2018 by Ioanna Deni
 	private DB database;
+	
+	//Stack for undo and redo
+	private Stack<Point[]> dbStack = new Stack<Point[]>();
 
 	/**
 	 * Constructor adds the mouseListner so that the mouseEvents 
@@ -254,5 +258,44 @@ public class DrawLineAndPoint extends JPanel implements MouseListener, MouseMoti
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	
+
+	/**
+	 * Written 3/13/18 by Jaemarie Solyst
+	 * This will be called by buttons.
+	 * Deletes the last thing made in the array.
+	 * 
+	 */
+	public void deleteLastShape() {
+		//Delete last item in array
+		if (database.size != 0) {
+		dbStack.push(database.delete(database.Size()-1));
+		repaint();
+		}
+	}
+	
+	/**
+	 * Written 3/13/18 by Jaemarie Solyst
+	 * This will be called by buttons.
+	 * Readds the last shape made in the array.
+	 */
+	public void addLastShape() {
+		//Add the last shape onto the database
+		if (dbStack.size() != 0) {
+		database.Add(dbStack.pop());
+		repaint();
+		}
+	}
+	
+	/**
+	 * Written 3/13/18 by Jaemarie Solyst
+	 * This will be called by buttons.
+	 * Clears all by reseting the db and thus the canvas.
+	 */
+	public void clearAll() {
+		//Create a new DB
+		database = new DB();
+		repaint();
 	}
 }
