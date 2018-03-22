@@ -449,4 +449,217 @@ public class DrawWindow extends JComponent implements ActionListener{
 	    dialog.setAlwaysOnTop(true);
 	    dialog.setVisible(true);
 	}
+		/**
+	 * This method adds listeners to the buttons that are then used to display a 
+	 * JLabel with the name of the button at the right hand side of the tool bar
+	 * every time the user enters the button.  The label goes away when the user
+	 * moves the mouse outside of the button.
+	 * 
+	 * @author Emilyann Nault
+	 * @version March 6, 2018
+	 */
+	public void initializeMouseListeners(){
+	
+		//For each button in the tool bar, a label is added that pops up when 
+		//the mouse enters a button and disappears when the mouse leaves the button 
+		newFileButton.addMouseListener(new MouseAdapter()
+	    {
+			JLabel newFileBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				newFileBLabel = new JLabel("New File");
+				toolBar.add(newFileBLabel);
+				newFileBLabel.setLocation(11*newFileButton.getWidth(), -11);
+				newFileBLabel.setSize(newFileBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				newFileBLabel.setBorder(border);
+				newFileBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		newFileBLabel.setVisible(false);
+	        }
+	    });
+		
+		saveButton.addMouseListener(new MouseAdapter()
+	    {
+			JLabel saveBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				saveBLabel = new JLabel("Save");
+				toolBar.add(saveBLabel);
+				saveBLabel.setLocation(11*saveButton.getWidth(), -11);
+				saveBLabel.setSize(saveBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				saveBLabel.setBorder(border);
+				saveBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		saveBLabel.setVisible(false);
+	        }
+	    });
+		
+		cutButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel cutBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				cutBLabel = new JLabel("Cut");
+				toolBar.add(cutBLabel);
+				cutBLabel.setLocation(11*cutButton.getWidth(), -11);
+				cutBLabel.setSize(cutBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				cutBLabel.setBorder(border);
+				cutBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		cutBLabel.setVisible(false);
+	        }
+	    });
+		
+		copyButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel copyBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				copyBLabel = new JLabel("Copy");
+				toolBar.add(copyBLabel);
+				copyBLabel.setLocation(11*copyButton.getWidth(), -11);
+				copyBLabel.setSize(copyBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				copyBLabel.setBorder(border);
+				copyBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		copyBLabel.setVisible(false);
+	        }
+	    });
+		
+		pasteButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel pasteBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				pasteBLabel = new JLabel("Paste");
+				toolBar.add(pasteBLabel);
+				pasteBLabel.setLocation(11*pasteButton.getWidth(), -11);
+				pasteBLabel.setSize(pasteBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				pasteBLabel.setBorder(border);
+				pasteBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		pasteBLabel.setVisible(false);
+	        }
+	    });
+		
+		redoButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel redoBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				redoBLabel = new JLabel("Redo");
+				toolBar.add(redoBLabel);
+				redoBLabel.setLocation(11*redoButton.getWidth(), -11);
+				redoBLabel.setSize(redoBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				redoBLabel.setBorder(border);
+				redoBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		redoBLabel.setVisible(false);
+	        }
+	    });
+		
+		undoButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel undoBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				undoBLabel = new JLabel("Undo");
+				toolBar.add(undoBLabel);
+				undoBLabel.setLocation(11*undoButton.getWidth(), -11);
+				undoBLabel.setSize(undoBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				undoBLabel.setBorder(border);
+				undoBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		undoBLabel.setVisible(false);
+	        }
+	    });
+		
+		thicknessButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel thicknessBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				thicknessBLabel = new JLabel("Thickness");
+				toolBar.add(thicknessBLabel);
+				thicknessBLabel.setLocation(11*thicknessButton.getWidth(), -11);
+				thicknessBLabel.setSize(thicknessBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				thicknessBLabel.setBorder(border);
+				thicknessBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		thicknessBLabel.setVisible(false);
+	        }
+	    });
+		
+		wordsButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel wordsBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				wordsBLabel = new JLabel("Text");
+				toolBar.add(wordsBLabel);
+				wordsBLabel.setLocation(11*wordsButton.getWidth(), -11);
+				wordsBLabel.setSize(wordsBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				wordsBLabel.setBorder(border);
+				wordsBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		wordsBLabel.setVisible(false);
+	        }
+	    });
+		
+		playButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel playBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				playBLabel = new JLabel("Play");
+				toolBar.add(playBLabel);
+				playBLabel.setLocation(11*playButton.getWidth(), -11);
+				playBLabel.setSize(playBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				playBLabel.setBorder(border);
+				playBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		playBLabel.setVisible(false);
+	        }
+	    });
+	}
 }
