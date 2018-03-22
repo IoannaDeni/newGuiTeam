@@ -54,5 +54,16 @@ class DB {
 			return deletedShape;
 		}
 		return null;
-	}	
+	}
+	
+	//ADDED BY IOANNA DENI 3/21/2018
+		public Point[] returnPoint () {
+			
+			if (size!=0){
+				return db.get(size-1);
+			}
+			else{
+				return null;
+			}
+		}
 }
