@@ -1,13 +1,15 @@
 package Application;
-
 //These imports have been initialized by Eclipse WindowBuilder 2018
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 
 import javax.swing.ImageIcon;
@@ -21,6 +23,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -88,7 +92,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 	private final JButton undoButton = new JButton("");
 	private final JButton thicknessButton = new JButton("");
 	private final JButton wordsButton = new JButton("");
-	private final JButton newFile = new JButton("");
+	private final JButton newFileButton = new JButton("");
 	private final JButton playButton = new JButton("");
 	private final JButton saveButton = new JButton("");
 	private final JButton lineModeButton = new JButton("");
@@ -206,7 +210,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		mnEdit.setForeground(SystemColor.menuText);
 		
 		// adds the buttons to the toolBar at the top of the window under the menuBar
-		toolBar.add(newFile);
+		toolBar.add(newFileButton);
 		toolBar.add(saveButton);
 		toolBar.add(cutButton);
 		toolBar.add(copyButton);
@@ -218,7 +222,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		toolBar.add(playButton);
 		toolBar.add(lineModeButton);
 		// These buttons have no displayed text only an icon provided by eclipse - see readme for more info
-		newFile.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
+		newFileButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
 		saveButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
 		cutButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/Cut_16x16_JFX.png")));
 		copyButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/Copy_16x16_JFX.png")));
@@ -230,7 +234,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		playButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/webkit/prism/resources/mediaPlayDisabled.png")));		
 		lineModeButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/DrawHorizontalLine_16x16_JFX.png")));
 		// and the buttons listeners - TO BE EDITED
-		newFile.addActionListener(this);
+		newFileButton.addActionListener(this);
 		saveButton.addActionListener(this);
 		cutButton.addActionListener(this);
 		copyButton.addActionListener(this);
@@ -329,12 +333,14 @@ public class DrawWindow extends JComponent implements ActionListener{
 			System.out.println("redo was clicked.");
 			buttonPressed="Redo button";
 			setWarningMsg(buttonPressed);
+			canvasGUI.addLastShape();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
 			}
 		else if(source == undoButton){
 			System.out.println("undo was clicked.");
 			buttonPressed="Undos button";
 			setWarningMsg(buttonPressed);
+			canvasGUI.deleteLastShape();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
 			}
 		else if(source == thicknessButton){
@@ -355,10 +361,13 @@ public class DrawWindow extends JComponent implements ActionListener{
 			setWarningMsg(buttonPressed);
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
 			}
-		else if(source == newFile){
+		else if(source == newFileButton){
 			System.out.println("file was clicked.");
 			buttonPressed="New File button";
 			setWarningMsg(buttonPressed);
+			
+			//WE NEED A CLEAR ALL BUTTON, USING NEW FILE FOR NOW.
+			canvasGUI.clearAll();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
 			}
 		else if(source == lineModeButton){
@@ -656,6 +665,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 				playBLabel.setForeground(Color.RED);
 				repaint();
 	        }
+	        
 	        public void mouseExited(MouseEvent evt)
 	        {
 	        		playBLabel.setVisible(false);
