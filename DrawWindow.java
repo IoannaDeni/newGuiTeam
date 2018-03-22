@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
-
+//import GeometryPack.GeometryPack;
+//for when the GeometryPack is a package in github MainApp
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -21,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -96,7 +97,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 	private final JButton playButton = new JButton("");
 	private final JButton saveButton = new JButton("");
 	private final JButton lineModeButton = new JButton("");
-	
+	private final JButton angleButton = new JButton("");	
 	
 	
 	//PART 3: MIDDLE CANVAS AREA
@@ -130,7 +131,8 @@ public class DrawWindow extends JComponent implements ActionListener{
 	//multiple canvases at the same time like excel and tabs
 	private final JLabel bottomLabel = new JLabel("Canvas 1");
 	
-	
+	//For initializing the geometry pathway
+	private GeometryPack geom = new GeometryPack();
 	
 	// THE FOLLOWING COMMENTED LINES ARE IMPORTANT
 	// **DO NOT DELETE**
@@ -221,6 +223,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		toolBar.add(wordsButton);
 		toolBar.add(playButton);
 		toolBar.add(lineModeButton);
+		toolBar.add(angleButton);
 		// These buttons have no displayed text only an icon provided by eclipse - see readme for more info
 		newFileButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
 		saveButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
@@ -233,6 +236,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		wordsButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/Bold_16x16_JFX.png")));
 		playButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/webkit/prism/resources/mediaPlayDisabled.png")));		
 		lineModeButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/DrawHorizontalLine_16x16_JFX.png")));
+		angleButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/control/skin/modena/dialog-more-details.png")));
 		// and the buttons listeners - TO BE EDITED
 		newFileButton.addActionListener(this);
 		saveButton.addActionListener(this);
@@ -246,6 +250,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		playButton.addActionListener(this);
 		saveButton.addActionListener(this);
 		lineModeButton.addActionListener(this);
+		angleButton.addActionListener(this);
 		
 		
 //		// adds the buttons to the secondary toolBar at the side of the window under the menuBar
@@ -298,6 +303,9 @@ public class DrawWindow extends JComponent implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		
+		// Takes x and y values from a point
+		Point[] lineArray = new Point[2];
 		
 		//Finds the source - the button that has been clicked
 		Object source = event.getSource();
@@ -377,6 +385,27 @@ public class DrawWindow extends JComponent implements ActionListener{
 			canvasGUI.switchLineMode();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
 			}
+		else if (source == angleButton){
+			System.out.println("angle was clicked.");
+			double angleValue = setAngle();
+			System.out.println(angleValue);
+			lineArray = db.returnPoint();
+			int length = 0;
+			
+			if (lineArray!=null){
+				length = geom.lineLength( lineArray[0], lineArray[1]);
+				
+				Point newPoint = geom.lineAtAngle(lineArray[1], length, angleValue);
+				
+				Point[] addition = new Point[2];
+				addition[0] = lineArray[1];
+				addition[1]= new Point((int)newPoint.getX(), (int)newPoint.getY());
+				
+				db.Add(addition);
+				
+				canvasGUI.canvasRepaint();
+			}
+		}
 //		else if(source == revTriangle){
 //			System.out.println("reverse triangle was clicked.");
 //			buttonPressed="Reversebutton";
@@ -671,5 +700,28 @@ public class DrawWindow extends JComponent implements ActionListener{
 	        		playBLabel.setVisible(false);
 	        }
 	    });
+	}
+	
+	/**
+	 * This method allows the function the angle button.
+	 * It pops up a new window in the middle of the screen with an input area for the user to input an angle. 
+	 * If click on the x symbol on the top of the tool bar the function will be terminated.
+	 * 
+	 * @author Ioanna Deni
+	 */
+	public double setAngle(){
+		
+		String value = (String)JOptionPane.showInputDialog("Input an anlge in radians", JOptionPane.INFORMATION_MESSAGE);
+		System.out.println("Clicked");
+
+		//If a value was returned returns it
+		if ((value != null) && (value.length() > 0)) {
+			
+			int number = Integer.parseInt(value);
+		    return (double)number;
+		}
+		else{
+			return 0;
+		}
 	}
 }
