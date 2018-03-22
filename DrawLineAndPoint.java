@@ -47,6 +47,7 @@ public class DrawLineAndPoint extends JPanel implements MouseListener, MouseMoti
 	// boolean to keep track of if the user has already clicked, or dragged
 	private boolean released = false;
 	private boolean drag = false;
+	public boolean drawLineMode = false;
 	
 	//These two instances allow the storing of the database
 	//added 3/5/2018 by Ioanna Deni
@@ -68,6 +69,23 @@ public class DrawLineAndPoint extends JPanel implements MouseListener, MouseMoti
 		//allow the parameter to match the instance object in the class
 		//added 3/5/2018 by Ioanna Deni
 		this.database = database;
+	}
+	
+	/**
+	 * Draw Line Mode boolean setter method
+	 */
+	public void switchLineMode()
+	{
+		if(drawLineMode)
+		{
+			drawLineMode = false;
+			System.out.println("Not in drawLineMode");
+		}
+		else if(!drawLineMode)
+		{
+			drawLineMode = true;
+			System.out.println("In drawLineMode");
+		}
 	}
 	
 	/**
@@ -157,7 +175,7 @@ public class DrawLineAndPoint extends JPanel implements MouseListener, MouseMoti
 		lineArray[1] = new Point(e.getX(), e.getY());
 					
 		//only add to data if the user clicked in the same place (this is not a press and release, it is a click)
-		if (!(lineArray[0].equals(lineArray[1]))) {
+		if (!(lineArray[0].equals(lineArray[1])) && drawLineMode) {
 					
 		// add a clone of the array to avoid null pointer when lineArray is reset
 		database.Add(lineArray.clone());
@@ -216,15 +234,17 @@ public class DrawLineAndPoint extends JPanel implements MouseListener, MouseMoti
 	@Override
 	public void mouseDragged(MouseEvent e) {
 
-		// saves the current mouse position values while the mouse is still pressed/dragging to the class-wide release X and Y variables
-		xRelease = e.getX();
-		yRelease = e.getY();
+		if(drawLineMode)
+		{
+			// saves the current mouse position values while the mouse is still pressed/dragging to the class-wide release X and Y variables
+			xRelease = e.getX();
+			yRelease = e.getY();
 
-		//set boolean to true so that in paint it may draw a line from the start point to "end" point/current mouse location
-		drag = true;
-		released = true;
-		repaint();
-		
+			//set boolean to true so that in paint it may draw a line from the start point to "end" point/current mouse location
+			drag = true;
+			released = true;
+			repaint();
+		}
 	}
 
 	/**
