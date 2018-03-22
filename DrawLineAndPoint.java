@@ -1,7 +1,5 @@
 package Application;
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -298,4 +296,9 @@ public class DrawLineAndPoint extends JPanel implements MouseListener, MouseMoti
 		database = new DB();
 		repaint();
 	}
+	
+	//ADDED BY IOANNA DENI 3/21/2018
+		public void canvasRepaint(){
+			repaint();
+		}
 }
