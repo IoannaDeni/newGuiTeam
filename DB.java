@@ -33,4 +33,26 @@ class DB {
 	public int Size () {
 		return size;
 	}
+	
+	/**
+	 * written 3/13/18 by Jaemarie Solyst
+	 * @param i takes in index of shape array to be deleted
+	 * @return the shape array that was deleted
+	 */
+	public Point[] delete(int i) {
+		
+		//make sure that the int is not out of bounds
+		if (i < size && i >= 0) {
+			//Get a clone to return
+			Point[] deletedShape = db.get(i).clone();
+			
+			//Remove the shapeArray from the db and return the clone
+			db.remove(i);
+			
+			//Decrement the size
+			size--;
+			return deletedShape;
+		}
+		return null;
+	}	
 }
