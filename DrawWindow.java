@@ -91,6 +91,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 	private final JButton newFile = new JButton("");
 	private final JButton playButton = new JButton("");
 	private final JButton saveButton = new JButton("");
+	private final JButton lineModeButton = new JButton("");
 	
 	
 	
@@ -215,6 +216,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		toolBar.add(thicknessButton);
 		toolBar.add(wordsButton);
 		toolBar.add(playButton);
+		toolBar.add(lineModeButton);
 		// These buttons have no displayed text only an icon provided by eclipse - see readme for more info
 		newFile.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
 		saveButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
@@ -226,6 +228,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		thicknessButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/FontBackgroundColor_16x16_JFX.png")));
 		wordsButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/Bold_16x16_JFX.png")));
 		playButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/webkit/prism/resources/mediaPlayDisabled.png")));		
+		lineModeButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/DrawHorizontalLine_16x16_JFX.png")));
 		// and the buttons listeners - TO BE EDITED
 		newFile.addActionListener(this);
 		saveButton.addActionListener(this);
@@ -238,6 +241,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		wordsButton.addActionListener(this);
 		playButton.addActionListener(this);
 		saveButton.addActionListener(this);
+		lineModeButton.addActionListener(this);
 		
 		
 //		// adds the buttons to the secondary toolBar at the side of the window under the menuBar
@@ -355,6 +359,13 @@ public class DrawWindow extends JComponent implements ActionListener{
 			System.out.println("file was clicked.");
 			buttonPressed="New File button";
 			setWarningMsg(buttonPressed);
+			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+			}
+		else if(source == lineModeButton){
+			System.out.println("line was clicked.");
+			buttonPressed="Line Mode button";
+			setWarningMsg(buttonPressed);
+			canvasGUI.switchLineMode();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
 			}
 //		else if(source == revTriangle){
