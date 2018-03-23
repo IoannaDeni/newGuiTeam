@@ -291,6 +291,8 @@ public class DrawWindow extends JComponent implements ActionListener{
 		bottomLabel.setFont(new Font("Tahoma", Font.ITALIC, 12));
 		bottomLabel.setForeground(UIManager.getColor("EditorPane.selectionBackground"));
 		
+		//Initializes the button labels
+		initializeMouseListeners();
 		}
 
 	/**
@@ -487,11 +489,12 @@ public class DrawWindow extends JComponent implements ActionListener{
 	    dialog.setAlwaysOnTop(true);
 	    dialog.setVisible(true);
 	}
-		/**
+	
+	/**
 	 * This method adds listeners to the buttons that are then used to display a 
-	 * JLabel with the name of the button at the right hand side of the tool bar
-	 * every time the user enters the button.  The label goes away when the user
-	 * moves the mouse outside of the button.
+	 * JLabel with the name of the button at the right hand side of the tool bar.
+	 * This label pops up every time the mouse enters the button.  The label goes
+	 * away when the user moves the mouse outside of the button.
 	 * 
 	 * @author Emilyann Nault
 	 * @version March 6, 2018
@@ -698,6 +701,47 @@ public class DrawWindow extends JComponent implements ActionListener{
 	        public void mouseExited(MouseEvent evt)
 	        {
 	        		playBLabel.setVisible(false);
+	        }
+	    });
+		lineModeButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel lineModeBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				lineModeBLabel = new JLabel("Line Mode");
+				toolBar.add(lineModeBLabel);
+				lineModeBLabel.setLocation(11*playButton.getWidth(), -11);
+				lineModeBLabel.setSize(lineModeBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				lineModeBLabel.setBorder(border);
+				lineModeBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		lineModeBLabel.setVisible(false);
+	        }
+	    });
+	
+		angleButton.addMouseListener(new MouseAdapter()
+		{
+			JLabel angleBLabel = null;
+	        public void mouseEntered(MouseEvent evt)
+	        {
+				angleBLabel = new JLabel("Create Line at Angle");
+				toolBar.add(angleBLabel);
+				angleBLabel.setLocation(11*playButton.getWidth(), -11);
+				angleBLabel.setSize(angleBLabel.getWidth() + 11,50);
+				Border border = LineBorder.createGrayLineBorder();
+				angleBLabel.setBorder(border);
+				angleBLabel.setForeground(Color.RED);
+				repaint();
+	        }
+	        
+	        public void mouseExited(MouseEvent evt)
+	        {
+	        		angleBLabel.setVisible(false);
 	        }
 	    });
 	}
