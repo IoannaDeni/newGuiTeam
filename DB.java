@@ -13,23 +13,40 @@ import java.util.List;
  *
  */
 class DB {
+	
 	List<Point[]> db;
 	int size;
-
+	
+	/**
+	* Database constructor that creates an ArrayList to store arrays of point objects.
+	*/
 	DB () {
 		db = new ArrayList<Point[]>(10);
 		size = 0;
 	}
 	
+	/**
+	* Add method that adds a new array of points to the db (database) ArrayList.
+	* @param p is an array of points that symbolizes a particular geometry object
+	*/
 	public void Add (Point[] p) {
 		db.add(p);
 		size++;
 	}
 	
+	/**
+	* Getter method that returns the array of points at a specified index in the db (database) ArrayList.
+	* @param i is the index
+	* @return the value/array of points at the given index in the  db (database) ArrayList
+	*/
 	public Point[] Get (int i ) {
 		return db.get(i);
 	}
 	
+	/**
+	* Getter method that returns the size/length of the db (database) ArrayList.
+	* @return size of the db (database) ArrayList
+	*/
 	public int Size () {
 		return size;
 	}
@@ -56,7 +73,11 @@ class DB {
 		return null;
 	}
 	
-	//ADDED BY IOANNA DENI 3/21/2018
+	/**
+	 * ADDED BY IOANNA DENI 3/21/2018
+	 * Getter method that returns the most recently added array of points added to the db (database) ArrayList
+	 * @return the most recently added array of points added to the db (database) ArrayList
+	 */
 		public Point[] returnPoint () {
 			
 			if (size!=0){
