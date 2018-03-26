@@ -12,8 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
-//import GeometryPack.GeometryPack;
 //for when the GeometryPack is a package in github MainApp
+import GeometryPack.GeometryPack;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -26,6 +26,7 @@ import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -45,19 +46,19 @@ import javax.swing.JOptionPane;
 public class DrawWindow extends JComponent implements ActionListener{
 	//Since it is a frame it extends JComponents and has general listeners
 	//that apply to the windows functionality
-	
+
 	//Instance of the database - TO BE EDITTED
 	private DB db = new DB();
 	DecimalFormat df = new DecimalFormat("###.###");
-	
-	
+
+
 	//Frame for the application that is divided in 5 parts
 	private JFrame frame; 
-	
-	
-	
+
+
+
 	//PART 1: THE TOP PANEL - MENUBAR
-	
+
 	//This menu hosts the different tabs like "File" "Edit" and "Help"
 	private final JMenuBar menuBar = new JMenuBar(); 
 	//Drop-down options in the menu bar 
@@ -77,11 +78,11 @@ public class DrawWindow extends JComponent implements ActionListener{
 	private final JMenuItem mntmMouseMode = new JMenuItem("Mouse Mode");
 	private final JMenuItem mntmSystem = new JMenuItem("System");
 	private final JMenuItem mntmContactUs = new JMenuItem("Contact us");
-	
-	
-	
+
+
+
 	//PART 2: THE SECOND TOP PANEL - SHORTCUTS BUTTONS
-	
+
 	//This toolBar will host the buttons on the top of the window under the menuBar
 	private final JToolBar toolBar = new JToolBar();	
 	// The different buttons added have temporary names and no functionality 
@@ -98,65 +99,61 @@ public class DrawWindow extends JComponent implements ActionListener{
 	private final JButton saveButton = new JButton("");
 	private final JButton lineModeButton = new JButton("");
 	private final JButton angleButton = new JButton("");	
-	
-	
+
+
 	//PART 3: MIDDLE CANVAS AREA
-	
+
 	//This is temporary the name of the canvas object
 	private DrawLineAndPoint canvasGUI = new DrawLineAndPoint(db);
-	
-	
-	
-//	//PART 4: LEFT PANEL - SIDE BUTTONS 
-//	
-//	//This second toolBar hosts the side buttons of the window
-//	private final JToolBar toolBar_1 = new JToolBar();
-//	// The different buttons added have temporary names and no functionality 
-//	// *THEY ARE EXAMPLES*
-//	private final JButton revTriangle = new JButton("");
-//	private final JButton triangle = new JButton("");
-//	private final JButton squares = new JButton("");
-//	private final JButton circle = new JButton("");
-//	private final JButton lineRight = new JButton("");
-//	private final JButton lineUp = new JButton("");
-//	private final JButton lineLeft = new JButton("");
-//	private final JButton makeBigger = new JButton("");
-//	private final JButton makeSmaller = new JButton("");
-	
-	
-	
+
+
+
+	//	//PART 4: LEFT PANEL - SIDE BUTTONS 
+	//	
+	//	//This second toolBar hosts the side buttons of the window
+	//	private final JToolBar toolBar_1 = new JToolBar();
+	//	// The different buttons added have temporary names and no functionality 
+	//	// *THEY ARE EXAMPLES*
+	//	private final JButton revTriangle = new JButton("");
+	//	private final JButton triangle = new JButton("");
+	//	private final JButton squares = new JButton("");
+	//	private final JButton circle = new JButton("");
+	//	private final JButton lineRight = new JButton("");
+	//	private final JButton lineUp = new JButton("");
+	//	private final JButton lineLeft = new JButton("");
+	//	private final JButton makeBigger = new JButton("");
+	//	private final JButton makeSmaller = new JButton("");
+
+
+
 	//PART 5: BOTTOM LABEL - CANVAS TAB
-	
+
 	//This label is at the bottom of the window and exist because we aim to be able to work in 
 	//multiple canvases at the same time like excel and tabs
 	private final JLabel bottomLabel = new JLabel("Canvas 1");
-	
+
 	//For initializing the geometry pathway
 	private GeometryPack geom = new GeometryPack();
-	
+
 	// THE FOLLOWING COMMENTED LINES ARE IMPORTANT
 	// **DO NOT DELETE**
 	// They are used in window builder as coordinates to make the presentation 
 	// If deleted the window will not be generated - but they remain the same so 
 	// if copy pasted they should work
-		
+
 	/**
 	 * @wbp.nonvisual location=64,179
-	 */
-	/**
-	 * Launch the application.
-	 *
+	 * This is the main function that runs and launches the application.
 	 */
 	public static void main(String[] args) {
-		// this is the main function necessary to run the application
 		EventQueue.invokeLater(new Runnable() {
-			// It runs - so we can add animations too 
+			// Calls run so animations can be added in the future
 			public void run() {
 				try {
-					//Creates a new window and makes it visible
+					// Creates a new window and makes it visible
 					DrawWindow window = new DrawWindow();
 					window.frame.setVisible(true);
-					// and catches exceptions generated by the window builder
+					// Catches exceptions generated by the window builder
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -165,7 +162,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 	}
 
 	/**
-	 * Create the application.
+	 * Creates the application.
 	 */
 	public DrawWindow() {
 		super();
@@ -173,24 +170,23 @@ public class DrawWindow extends JComponent implements ActionListener{
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initializes the contents of the frame.
 	 */
 	private void initialize() {
-		//Creates the frame for the application and sets its size and 
-		//closing procedure
+		// Creates the frame for the application and sets its size and closing procedure
 		frame = new JFrame();
 		frame.setBounds(100, 100, 873, 530);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			
-		//adds the different JComponents in the frame
+
+		// Adds the different JComponents in the frame
 		frame.setJMenuBar(menuBar);
 		frame.getContentPane().add(toolBar, BorderLayout.NORTH);
 		frame.getContentPane().add(canvasGUI, BorderLayout.CENTER);
 		frame.getContentPane().add(bottomLabel, BorderLayout.SOUTH);
-//		frame.getContentPane().add(toolBar_1, BorderLayout.WEST);
-		
-		
-		//adds the buttons in the top menuBar   
+		//frame.getContentPane().add(toolBar_1, BorderLayout.WEST);
+
+
+		// Adds the buttons in the top menuBar   
 		menuBar.add(mnMenu);
 		mnMenu.add(mntmNewFile);
 		mnMenu.add(mntmSave);
@@ -205,13 +201,13 @@ public class DrawWindow extends JComponent implements ActionListener{
 		mnSettings.add(mntmSystem);
 		menuBar.add(mnHelp);
 		mnHelp.add(mntmContactUs);
-		// This will give a better color and fond to the Menu options on the menu bar
+		// This will give a better color and font to the Menu options on the menu bar
 		mnMenu.setForeground(SystemColor.menuText);
 		mnHelp.setForeground(SystemColor.menuText);
 		mnSettings.setForeground(SystemColor.menuText);
 		mnEdit.setForeground(SystemColor.menuText);
-		
-		// adds the buttons to the toolBar at the top of the window under the menuBar
+
+		// Adds the buttons to the toolBar at the top of the window under the menuBar
 		toolBar.add(newFileButton);
 		toolBar.add(saveButton);
 		toolBar.add(cutButton);
@@ -224,7 +220,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		toolBar.add(playButton);
 		toolBar.add(lineModeButton);
 		toolBar.add(angleButton);
-		// These buttons have no displayed text only an icon provided by eclipse - see readme for more info
+		// These buttons have no displayed text, only an icon is provided by eclipse - see readme for more info
 		newFileButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
 		saveButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
 		cutButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/Cut_16x16_JFX.png")));
@@ -237,7 +233,7 @@ public class DrawWindow extends JComponent implements ActionListener{
 		playButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/webkit/prism/resources/mediaPlayDisabled.png")));		
 		lineModeButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/web/skin/DrawHorizontalLine_16x16_JFX.png")));
 		angleButton.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/control/skin/modena/dialog-more-details.png")));
-		// and the buttons listeners - TO BE EDITED
+		// Adds action listeners to the buttons
 		newFileButton.addActionListener(this);
 		saveButton.addActionListener(this);
 		cutButton.addActionListener(this);
@@ -251,49 +247,49 @@ public class DrawWindow extends JComponent implements ActionListener{
 		saveButton.addActionListener(this);
 		lineModeButton.addActionListener(this);
 		angleButton.addActionListener(this);
-		
-		
-//		// adds the buttons to the secondary toolBar at the side of the window under the menuBar
-//		toolBar_1.add(triangle);
-//		toolBar_1.add(squares);
-//		toolBar_1.add(revTriangle);
-//		toolBar_1.add(circle);
-//		toolBar_1.add(lineUp);
-//		toolBar_1.add(lineRight);
-//		toolBar_1.add(lineLeft);
-//		toolBar_1.add(makeBigger);
-//		toolBar_1.add(makeSmaller);
-//		// This allows the toolBar to be vertical instead of horizontal
-//		toolBar_1.setOrientation(SwingConstants.VERTICAL);
-//		// These buttons have no displayed text only an icon provided by eclipse - see readme for more info
-//		triangle.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/sortUp.png")));
-//		revTriangle.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/sortDown.png")));
-//		squares.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/control/skin/caspian/pattern-transparent.png")));
-//		lineRight.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/collapsed-rtl.gif")));
-//		circle.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
-//		lineRight.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/collapsed-rtl.gif")));
-//		lineUp.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/expanded.gif")));
-//		lineLeft.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/collapsed.gif")));
-//		makeBigger.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/maximize.gif")));
-//		makeSmaller.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/iconify-pressed.gif")));
-//		// and the buttons listeners - TO BE EDITED
-//		triangle.addActionListener(this);
-//		revTriangle.addActionListener(this);
-//		squares.addActionListener(this);
-//		circle.addActionListener(this);
-//		lineRight.addActionListener(this);
-//		lineUp.addActionListener(this);
-//		lineLeft.addActionListener(this);
-//		makeBigger.addActionListener(this);
-//		makeSmaller.addActionListener(this);
-		
-		// We set the bottom label to be more user friendly 
+
+		//POSSIBLE BUTTONS TO USE LATER THAT WERE PREVIOUSLY IN A LEFT SIDE TOOLBAR SECTION
+		//		// adds the buttons to the secondary toolBar at the side of the window under the menuBar
+		//		toolBar_1.add(triangle);
+		//		toolBar_1.add(squares);
+		//		toolBar_1.add(revTriangle);
+		//		toolBar_1.add(circle);
+		//		toolBar_1.add(lineUp);
+		//		toolBar_1.add(lineRight);
+		//		toolBar_1.add(lineLeft);
+		//		toolBar_1.add(makeBigger);
+		//		toolBar_1.add(makeSmaller);
+		//		// This allows the toolBar to be vertical instead of horizontal
+		//		toolBar_1.setOrientation(SwingConstants.VERTICAL);
+		//		// These buttons have no displayed text only an icon provided by eclipse - see readme for more info
+		//		triangle.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/sortUp.png")));
+		//		revTriangle.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/sortDown.png")));
+		//		squares.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/javafx/scene/control/skin/caspian/pattern-transparent.png")));
+		//		lineRight.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/collapsed-rtl.gif")));
+		//		circle.setIcon(new ImageIcon(DrawWindow.class.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
+		//		lineRight.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/collapsed-rtl.gif")));
+		//		lineUp.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/expanded.gif")));
+		//		lineLeft.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/collapsed.gif")));
+		//		makeBigger.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/maximize.gif")));
+		//		makeSmaller.setIcon(new ImageIcon(DrawWindow.class.getResource("/javax/swing/plaf/metal/icons/ocean/iconify-pressed.gif")));
+		//		// and the buttons listeners - TO BE EDITED
+		//		triangle.addActionListener(this);
+		//		revTriangle.addActionListener(this);
+		//		squares.addActionListener(this);
+		//		circle.addActionListener(this);
+		//		lineRight.addActionListener(this);
+		//		lineUp.addActionListener(this);
+		//		lineLeft.addActionListener(this);
+		//		makeBigger.addActionListener(this);
+		//		makeSmaller.addActionListener(this);
+
+		// Set the bottom label to be more user friendly by changing the color and font
 		bottomLabel.setFont(new Font("Tahoma", Font.ITALIC, 12));
 		bottomLabel.setForeground(UIManager.getColor("EditorPane.selectionBackground"));
-		
-		//Initializes the button labels
+
+		// Initializes the button labels
 		initializeMouseListeners();
-		}
+	}
 
 	/**
 	 * This method has been generated for the distribution of the listeners of the buttons.
@@ -301,22 +297,23 @@ public class DrawWindow extends JComponent implements ActionListener{
 	 * It calls methods holding the functions according to what button was pressed.
 	 * 
 	 * Supplemented Kiera McCabe's idea of popping message warning window
-	 * ALL BUTTONS HAVE THE SAME FUNCTION - TO BE EDITTED
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		
+
 		// Takes x and y values from a point
 		Point[] lineArray = new Point[2];
-		
+
 		//Finds the source - the button that has been clicked
 		Object source = event.getSource();
-		
+
 		//Text message in the popped window
 		String buttonPressed;
-		
-		//**THIS IS AN EXAMPLE**
-		// the code for now will identify the buttons clicked and write on the console the name + "was clicked."
+
+		/* The code for now will identify the buttons clicked and write on the console the name + "was clicked."
+		 * Each button has or will eventually be given specific instructions and tasks to complete when users 
+		 * click on them.
+		 */
 		if(source == saveButton){
 			System.out.println("save was clicked.");
 			buttonPressed="Save button";
@@ -326,144 +323,158 @@ public class DrawWindow extends JComponent implements ActionListener{
 			buttonPressed="Cut button";
 			setWarningMsg(buttonPressed);
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == copyButton){
 			System.out.println("copy was clicked.");
 			buttonPressed="Copy button";
 			setWarningMsg(buttonPressed);
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == pasteButton){
 			System.out.println("paste was clicked.");
 			buttonPressed="Paste button";
 			setWarningMsg(buttonPressed);
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == redoButton){
 			System.out.println("redo was clicked.");
 			buttonPressed="Redo button";
 			setWarningMsg(buttonPressed);
+			// Calls method to re-do previously undone action
 			canvasGUI.addLastShape();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == undoButton){
 			System.out.println("undo was clicked.");
 			buttonPressed="Undos button";
 			setWarningMsg(buttonPressed);
+			// Calls method to undo an action
 			canvasGUI.deleteLastShape();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == thicknessButton){
 			System.out.println("highlight was clicked.");
 			buttonPressed="Thickness button";
 			setWarningMsg(buttonPressed);
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == wordsButton){
 			System.out.println("letter was clicked.");
 			buttonPressed="Words button";
 			setWarningMsg(buttonPressed);
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == playButton){
 			System.out.println("play was clicked.");
 			buttonPressed="Play button";
 			setWarningMsg(buttonPressed);
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == newFileButton){
 			System.out.println("file was clicked.");
 			buttonPressed="New File button";
 			setWarningMsg(buttonPressed);
-			
-			//WE NEED A CLEAR ALL BUTTON, USING NEW FILE FOR NOW.
+
+			// WE NEED A CLEAR ALL BUTTON, USING NEW FILE FOR NOW.
 			canvasGUI.clearAll();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if(source == lineModeButton){
 			System.out.println("line was clicked.");
 			buttonPressed="Line Mode button";
 			setWarningMsg(buttonPressed);
+			// Calls a method to switch in or out of line mode
 			canvasGUI.switchLineMode();
 			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-			}
+		}
 		else if (source == angleButton){
 			System.out.println("angle was clicked.");
+			// Gets user's desired angle for their new line
 			double angleValue = setAngle();
 			System.out.println(angleValue);
+			
+			// Gets the last line added to the database.
 			lineArray = db.returnPoint();
+			// Variable to hold length of last line created.
 			int length = 0;
 			
+			// Checks there's a value in lineArray to avoid null pointer exception.
 			if (lineArray!=null){
+				// Gets the length of the last line made
 				length = geom.lineLength( lineArray[0], lineArray[1]);
 				
+				/* Creates a new point extending from the end of the last line at the same length as 
+				 * the last line and made at angle given by the user. */
 				Point newPoint = geom.lineAtAngle(lineArray[1], length, angleValue);
 				
+				// Creates new line at from the end of the last line to the newly calculated point location.
 				Point[] addition = new Point[2];
 				addition[0] = lineArray[1];
 				addition[1]= new Point((int)newPoint.getX(), (int)newPoint.getY());
 				
+				// Adds new line to the database.
 				db.Add(addition);
-				
+
+				// Repaints JPanel
 				canvasGUI.canvasRepaint();
 			}
 		}
-//		else if(source == revTriangle){
-//			System.out.println("reverse triangle was clicked.");
-//			buttonPressed="Reversebutton";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == triangle){
-//			System.out.println("triangle was clicked.");
-//			buttonPressed="Triangle button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == circle){
-//			System.out.println("circle was clicked.");
-//			buttonPressed="Circle button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == lineUp){
-//			System.out.println("line up was clicked.");
-//			buttonPressed="Line up button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == lineRight){
-//			System.out.println("line right was clicked.");
-//			buttonPressed="line right button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == squares){
-//			System.out.println("squares was clicked.");
-//			buttonPressed="Squares button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == lineLeft){
-//			System.out.println("line left was clicked.");
-//			buttonPressed="line left button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == makeBigger){
-//			System.out.println("make bigger was clicked.");
-//			buttonPressed="make bigger button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-//		else if(source == makeSmaller){
-//			System.out.println("make small was clicked.");
-//			buttonPressed="make small button";
-//			setWarningMsg(buttonPressed);
-//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
-//			}
-		}
-	
+		//		else if(source == revTriangle){
+		//			System.out.println("reverse triangle was clicked.");
+		//			buttonPressed="Reversebutton";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == triangle){
+		//			System.out.println("triangle was clicked.");
+		//			buttonPressed="Triangle button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == circle){
+		//			System.out.println("circle was clicked.");
+		//			buttonPressed="Circle button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == lineUp){
+		//			System.out.println("line up was clicked.");
+		//			buttonPressed="Line up button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == lineRight){
+		//			System.out.println("line right was clicked.");
+		//			buttonPressed="line right button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == squares){
+		//			System.out.println("squares was clicked.");
+		//			buttonPressed="Squares button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == lineLeft){
+		//			System.out.println("line left was clicked.");
+		//			buttonPressed="line left button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == makeBigger){
+		//			System.out.println("make bigger was clicked.");
+		//			buttonPressed="make bigger button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+		//		else if(source == makeSmaller){
+		//			System.out.println("make small was clicked.");
+		//			buttonPressed="make small button";
+		//			setWarningMsg(buttonPressed);
+		//			//JOptionPane.showInputDialog(buttonPressed+"was pressed");
+		//			}
+	}
+
 	/**
 	 * This method allows the function of a button.
 	 * It pops up a new window in the middle of the screen with a warning message and an option to click okay.
@@ -475,39 +486,43 @@ public class DrawWindow extends JComponent implements ActionListener{
 	 * @param text message to be displayed
 	 */
 	public static void setWarningMsg(String text){
-		
-		//This gets the defaults of the location and path of events of the pop up window 
-	    Toolkit.getDefaultToolkit().beep();
-	    
-	    //This allow the instructions displayed to be equal to our parameter 
-	    JOptionPane optionPane = new JOptionPane(text,JOptionPane.WARNING_MESSAGE);
-	    
-	    //This sets the title of the window
-	    JDialog dialog = optionPane.createDialog("Warning!");
-	    
-	    //Sets the whole pop up window visible
-	    dialog.setAlwaysOnTop(true);
-	    dialog.setVisible(true);
+
+		// This gets the defaults of the location and path of events of the pop up window 
+		Toolkit.getDefaultToolkit().beep();
+
+		// This allow the instructions displayed to be equal to our parameter 
+		JOptionPane optionPane = new JOptionPane(text,JOptionPane.WARNING_MESSAGE);
+
+		// This sets the title of the window
+		JDialog dialog = optionPane.createDialog("Warning!");
+
+		// Sets the whole pop up window visible
+		dialog.setAlwaysOnTop(true);
+		dialog.setVisible(true);
 	}
-	
+
 	/**
 	 * This method adds listeners to the buttons that are then used to display a 
 	 * JLabel with the name of the button at the right hand side of the tool bar.
-	 * This label pops up every time the mouse enters the button.  The label goes
+	 * This label pops up every time the mouse enters the button. The label goes
 	 * away when the user moves the mouse outside of the button.
 	 * 
 	 * @author Emilyann Nault
 	 * @version March 6, 2018
 	 */
 	public void initializeMouseListeners(){
-	
-		//For each button in the tool bar, a label is added that pops up when 
-		//the mouse enters a button and disappears when the mouse leaves the button 
+
+		/* For each button in the tool bar, a label is added that pops up when 
+		 * the mouse enters a button and disappears when the mouse leaves the button */
 		newFileButton.addMouseListener(new MouseAdapter()
-	    {
+		{
+			// Creates JLabel for the new file button
 			JLabel newFileBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			
+			// Detects when the mouse enters the button
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				newFileBLabel = new JLabel("New File");
 				toolBar.add(newFileBLabel);
 				newFileBLabel.setLocation(11*newFileButton.getWidth(), -11);
@@ -516,18 +531,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				newFileBLabel.setBorder(border);
 				newFileBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		newFileBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				newFileBLabel.setVisible(false);
+			}
+		});
+
 		saveButton.addMouseListener(new MouseAdapter()
-	    {
+		{
+			// Creates JLabel for the save button
 			JLabel saveBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				saveBLabel = new JLabel("Save");
 				toolBar.add(saveBLabel);
 				saveBLabel.setLocation(11*saveButton.getWidth(), -11);
@@ -536,18 +554,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				saveBLabel.setBorder(border);
 				saveBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		saveBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				saveBLabel.setVisible(false);
+			}
+		});
+
 		cutButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the cut button
 			JLabel cutBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				cutBLabel = new JLabel("Cut");
 				toolBar.add(cutBLabel);
 				cutBLabel.setLocation(11*cutButton.getWidth(), -11);
@@ -556,18 +577,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				cutBLabel.setBorder(border);
 				cutBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		cutBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				cutBLabel.setVisible(false);
+			}
+		});
+
 		copyButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the copy button
 			JLabel copyBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				copyBLabel = new JLabel("Copy");
 				toolBar.add(copyBLabel);
 				copyBLabel.setLocation(11*copyButton.getWidth(), -11);
@@ -576,18 +600,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				copyBLabel.setBorder(border);
 				copyBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		copyBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				copyBLabel.setVisible(false);
+			}
+		});
+
 		pasteButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the paste button
 			JLabel pasteBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				pasteBLabel = new JLabel("Paste");
 				toolBar.add(pasteBLabel);
 				pasteBLabel.setLocation(11*pasteButton.getWidth(), -11);
@@ -596,18 +623,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				pasteBLabel.setBorder(border);
 				pasteBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		pasteBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				pasteBLabel.setVisible(false);
+			}
+		});
+
 		redoButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the redo button
 			JLabel redoBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				redoBLabel = new JLabel("Redo");
 				toolBar.add(redoBLabel);
 				redoBLabel.setLocation(11*redoButton.getWidth(), -11);
@@ -616,18 +646,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				redoBLabel.setBorder(border);
 				redoBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		redoBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				redoBLabel.setVisible(false);
+			}
+		});
+
 		undoButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the undo button
 			JLabel undoBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				undoBLabel = new JLabel("Undo");
 				toolBar.add(undoBLabel);
 				undoBLabel.setLocation(11*undoButton.getWidth(), -11);
@@ -636,18 +669,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				undoBLabel.setBorder(border);
 				undoBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		undoBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				undoBLabel.setVisible(false);
+			}
+		});
+
 		thicknessButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the thickness button
 			JLabel thicknessBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				thicknessBLabel = new JLabel("Thickness");
 				toolBar.add(thicknessBLabel);
 				thicknessBLabel.setLocation(11*thicknessButton.getWidth(), -11);
@@ -656,18 +692,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				thicknessBLabel.setBorder(border);
 				thicknessBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		thicknessBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				thicknessBLabel.setVisible(false);
+			}
+		});
+
 		wordsButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the words button
 			JLabel wordsBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				wordsBLabel = new JLabel("Text");
 				toolBar.add(wordsBLabel);
 				wordsBLabel.setLocation(11*wordsButton.getWidth(), -11);
@@ -676,18 +715,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				wordsBLabel.setBorder(border);
 				wordsBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		wordsBLabel.setVisible(false);
-	        }
-	    });
-		
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				wordsBLabel.setVisible(false);
+			}
+		});
+
 		playButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the play button
 			JLabel playBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				playBLabel = new JLabel("Play");
 				toolBar.add(playBLabel);
 				playBLabel.setLocation(11*playButton.getWidth(), -11);
@@ -696,18 +738,20 @@ public class DrawWindow extends JComponent implements ActionListener{
 				playBLabel.setBorder(border);
 				playBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		playBLabel.setVisible(false);
-	        }
-	    });
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				playBLabel.setVisible(false);
+			}
+		});
 		lineModeButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the line mode button
 			JLabel lineModeBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				lineModeBLabel = new JLabel("Line Mode");
 				toolBar.add(lineModeBLabel);
 				lineModeBLabel.setLocation(11*playButton.getWidth(), -11);
@@ -716,19 +760,21 @@ public class DrawWindow extends JComponent implements ActionListener{
 				lineModeBLabel.setBorder(border);
 				lineModeBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		lineModeBLabel.setVisible(false);
-	        }
-	    });
-	
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				lineModeBLabel.setVisible(false);
+			}
+		});
+
 		angleButton.addMouseListener(new MouseAdapter()
 		{
+			// Creates JLabel for the angle button
 			JLabel angleBLabel = null;
-	        public void mouseEntered(MouseEvent evt)
-	        {
+			public void mouseEntered(MouseEvent evt)
+			{
+				// Sets JLabel text, location, size, border, color and adds it to the toolbar
 				angleBLabel = new JLabel("Create Line at Angle");
 				toolBar.add(angleBLabel);
 				angleBLabel.setLocation(11*playButton.getWidth(), -11);
@@ -737,32 +783,34 @@ public class DrawWindow extends JComponent implements ActionListener{
 				angleBLabel.setBorder(border);
 				angleBLabel.setForeground(Color.RED);
 				repaint();
-	        }
-	        
-	        public void mouseExited(MouseEvent evt)
-	        {
-	        		angleBLabel.setVisible(false);
-	        }
-	    });
+			}
+			// Hides the JLabel for the button when user no longer has the mouse over it
+			public void mouseExited(MouseEvent evt)
+			{
+				angleBLabel.setVisible(false);
+			}
+		});
 	}
-	
+
 	/**
 	 * This method allows the function the angle button.
 	 * It pops up a new window in the middle of the screen with an input area for the user to input an angle. 
 	 * If click on the x symbol on the top of the tool bar the function will be terminated.
+	 * @return number of radians the user wants the angle of the new line they make to be at with respect to the previous/connected line
 	 * 
 	 * @author Ioanna Deni
 	 */
 	public double setAngle(){
-		
+
+		// Gets user input on the number of radians they want the angle of the new line they make to be at with respect to the previous/connected line
 		String value = (String)JOptionPane.showInputDialog("Input an anlge in radians", JOptionPane.INFORMATION_MESSAGE);
 		System.out.println("Clicked");
 
-		//If a value was returned returns it
+		//If a value was entered by the user it's returned
 		if ((value != null) && (value.length() > 0)) {
-			
+
 			int number = Integer.parseInt(value);
-		    return (double)number;
+			return (double)number;
 		}
 		else{
 			return 0;
